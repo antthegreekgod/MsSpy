@@ -3,9 +3,6 @@
 #include <shlwapi.h>
 #include "beacon.h"
 
-DECLSPEC_IMPORT int SHLWAPI$StrToIntA(
-    PCSTR pszSrc
-);
 
 DECLSPEC_IMPORT DWORD KERNEL32$CreateProcessA(
     LPCSTR                lpApplicationName,
@@ -19,21 +16,6 @@ DECLSPEC_IMPORT DWORD KERNEL32$CreateProcessA(
     LPSTARTUPINFO        lpStartupInfo,
     LPPROCESS_INFORMATION lpProcessInformation);
 
-
-DECLSPEC_IMPORT HANDLE  KERNEL32$CreateToolhelp32Snapshot(
-    DWORD dwFlags,
-    DWORD th32ProcessID
-);
-
-DECLSPEC_IMPORT BOOL KERNEL32$Process32First(
-    HANDLE           hSnapshot,
-    LPPROCESSENTRY32 lppe
-);
-
-DECLSPEC_IMPORT BOOL KERNEL32$Process32Next(
-    HANDLE           hSnapshot,
-    LPPROCESSENTRY32 lppe
-);
 
 DECLSPEC_IMPORT BOOL KERNEL32$InitializeProcThreadAttributeList(
     LPPROC_THREAD_ATTRIBUTE_LIST lpAttributeList,
