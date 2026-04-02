@@ -19,7 +19,7 @@ About a year ago, while browsing mr.d0x's blog, I came across two particularly i
 ## Compilation
 
 ```bash
-x86_64-w64-mingw32-gcc -o msspy.o -c MsSpy.c
+x86_64-w64-mingw32-gcc -o msspy.o -c BoF.c
 ```
 
 ## Usage
