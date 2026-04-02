@@ -18,9 +18,9 @@ About a year ago, while browsing mr.d0x's blog, I came across two particularly i
 
 ## Compilation
 
-\`\`\`bash
+```bash
 x86_64-w64-mingw32-gcc -o msspy.o -c MsSpy.c
-\`\`\`
+```
 
 ## Usage
 
