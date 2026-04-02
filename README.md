@@ -1,7 +1,5 @@
 # MsSpy (BoF)
 
-BoF developed for easy integration with Havoc C2 to use 
-
 ## Overview
 
 About a year ago, while browsing mr.d0x's blog, I came across two particularly interesting posts where he investigated Chromium-based browsers; specifically certain CLI flags that can be abused when launching a Chromium browser to silently enable screen and webcam sharing. For a thorough understanding of the research behind this, I highly recommend reading his original posts. Combining his research with ongoing Beacon Object File studies from MalDev Academy, I wanted to write a small BoF capable of spawning Microsoft Edge to capture the victim's screen, webcam, and microphone.
